@@ -4,7 +4,7 @@
 
 ## 1. Create Secret in AWS Secrets Manager
 - Create `SLACK_BOT_TOKEN` secret with random value
-- Give it a name `prod/slack-bot/token-v1`
+- Give it a name `prod/slack-bot/token`
 
 ## 2. Create IAM User with Full Access
 - Create `admin` user and place it in `Admin` IAM group
@@ -33,6 +33,7 @@
 }
 ```
 - Create `secret-access-role` IAM Role
+
 ## 4. Create AWS Lambda Function
 - Create `secret-access` folder
 - Run `npm init`
@@ -62,10 +63,11 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
 {
     "Effect": "Allow",
     "Action": "secretsmanager:GetSecretValue",
-    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v1-HCIVaA"
+    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-HCIVaA"
 }
 ```
 - Remove access
+
 ## 7. Create Resource-based Policy for Secret
 ```json
 {
@@ -77,7 +79,7 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
         "AWS": "arn:aws:sts::424432388155:assumed-role/secret-access-role/secret-access"
       },
       "Action": "secretsmanager:GetSecretValue",
-      "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v1-HCIVaA"
+      "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-HCIVaA"
     }
   ]
 }

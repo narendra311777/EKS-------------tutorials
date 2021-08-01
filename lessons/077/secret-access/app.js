@@ -8,7 +8,7 @@ const client = new AWS.SecretsManager({
 
 const getSecret = (secretName, callback) => {
     let secret, decodedBinarySecret;
-    client.getSecretValue({ SecretId: secretName }, function (err, data) {
+    client.getSecretValue({ SecretId: secretName }, (err, data) => {
         if (err) {
             callback(null, { message: err.message });
         }
@@ -24,6 +24,6 @@ const getSecret = (secretName, callback) => {
     });
 };
 
-exports.handler = function (event, context, callback) {
+exports.handler = (event, context, callback) => {
     getSecret(secretName, callback);
 };
