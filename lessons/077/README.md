@@ -4,7 +4,7 @@
 
 ## 1. Create Secret in AWS Secrets Manager
 - Create `SLACK_BOT_TOKEN` secret with random value
-- Give it a name `prod/slack-bot/token-v2`
+- Give it a name `prod/slack-bot/token-v3`
 
 ## 2. Create IAM User with Full Access
 - Create `admin` user and place it in `Admin` IAM group
