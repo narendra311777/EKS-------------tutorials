@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk'),
     region = "us-east-1",
-    secretName = "prod/slack-bot/token-v2";
+    secretName = "prod/slack-bot/token-v3";
 
 const client = new AWS.SecretsManager({
     region: region
