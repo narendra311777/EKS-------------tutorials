@@ -86,7 +86,7 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
 ## Clean UP
 - Delete `admin` IAM user
 - Delete ECR `secret-access`
-- Deete `secret-access-role` IAM Role
+- Delete `secret-access-role` IAM Role
 - Delete `AWSLambdaSecretsAccess` IAM Policy
 - Delete `secret-access` lambda
 - Delete `secret-access-API` API gateway
