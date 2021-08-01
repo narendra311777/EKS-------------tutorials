@@ -1,41 +1,29 @@
-var AWS = require('aws-sdk'),
-    region = "prod/bot/token",
-    secretName = "prod/some",
-    secret,
-    decodedBinarySecret;
+const AWS = require('aws-sdk'),
+    region = "us-east-1",
+    secretName = "prod/slack-bot/token-v1";
 
-var client = new AWS.SecretsManager({
+const client = new AWS.SecretsManager({
     region: region
 });
 
-exports.handler = function (event, context, callback) {
+const getSecret = (secretName, callback) => {
+    let secret, decodedBinarySecret;
     client.getSecretValue({ SecretId: secretName }, function (err, data) {
-
         if (err) {
-            if (err.code === 'DecryptionFailureException')
-                throw err;
-            else if (err.code === 'InternalServiceErrorException')
-                throw err;
-            else if (err.code === 'InvalidParameterException')
-                throw err;
-            else if (err.code === 'InvalidRequestException')
-                throw err;
-            else if (err.code === 'ResourceNotFoundException')
-                throw err;
+            callback(null, { message: err.message });
         }
         else {
             if ('SecretString' in data) {
                 secret = data.SecretString;
-                console.log("HERE:")
-                console.log(secret)
             } else {
                 let buff = new Buffer(data.SecretBinary, 'base64');
                 decodedBinarySecret = buff.toString('ascii');
             }
         }
-        console.log("HERE2:")
-        console.log(data)
+        callback(null, secret);
     });
+};
 
-    callback(null)
-}
+exports.handler = function (event, context, callback) {
+    getSecret(secretName, callback);
+};

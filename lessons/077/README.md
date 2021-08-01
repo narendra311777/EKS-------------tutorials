@@ -3,11 +3,13 @@
 [YouTube Tutorial]()
 
 ## 1. Create Secret in AWS Secrets Manager
-- Create `SLACK_BOT_TOKEN` secret
-- Give it a name `prod/bot/token`
+- Create `SLACK_BOT_TOKEN` secret with random value
+- Give it a name `prod/slack-bot/token-v1`
+
 ## 2. Create IAM User with Full Access
 - Create `admin` user and place it in `Admin` IAM group
-- Configure aws
+- Configure aws cli `aws configure`
+
 ## 3. Create IAM Role for AWS Lambda
 - Create IAM Policy `AWSLambdaSecretsAccess`
 ```json
@@ -32,50 +34,66 @@
 ```
 - Create `secret-access-role` IAM Role
 ## 4. Create AWS Lambda Function
-- Create function
+- Create `secret-access` folder
+- Run `npm init`
+- Install aws-sdk `npm i aws-sdk`
+- Create `app.js`
+- Create `Dockerfile`
+
 ## 5. Deploy Lambda Using Container Image
 - Create ECR `secret-access`
-- Deploy
+- Build and push image
+```
+aws ecr get-login-password --region us-east-1 | \
+docker login --username AWS \
+--password-stdin 424432388155.dkr.ecr.us-east-1.amazonaws.com
+```
+```bash
+docker build -t 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0 .
+```
+```bash
+docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
+```
+- Deploy lambda
+- Test with curl (fail)
+
 ## 6. Grant Access for IAM Role
-## 7. Create Resource-based Policy for Secret
-
-
-
-
-
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 424432388155.dkr.ecr.us-east-1.amazonaws.com
-docker build -t 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:latest .
-docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:latest
-
-{
-  "Version" : "2012-10-17",
-  "Statement" : [ {
-    "Effect" : "Allow",
-    "Principal" : {
-      "AWS" : "arn:aws:sts::424432388155:assumed-role/node-role-lyj43ki2/node"
-    },
-    "Action" : "secretsmanager:GetSecretValue",
-    "Resource" : "*"
-  } ]
-}
-
+```json
 {
     "Effect": "Allow",
     "Action": "secretsmanager:GetSecretValue",
-    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/some-IwZrh6"
+    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v1-HCIVaA"
 }
-
-
-node-role
-AWSLambdaSecretsAccess
-
+```
+- Remove access
+## 7. Create Resource-based Policy for Secret
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:sts::424432388155:assumed-role/secret-access-role/secret-access"
+      },
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v1-HCIVaA"
+    }
+  ]
+}
+```
 
 ## Clean UP
 - Delete `admin` IAM user
 - Delete ECR `secret-access`
 - Deete `secret-access-role` IAM Role
 - Delete `AWSLambdaSecretsAccess` IAM Policy
+- Delete `secret-access` lambda
+- Delete `secret-access-API` API gateway
 
 ## Links
 Resource-based policies (Principal): https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
 Resource-based policies: https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-policies.html
+You need to pass the statusCode after executing the Lambda function: https://stackoverflow.com/questions/47672377/message-internal-server-error-when-try-to-access-aws-gateway-api
+
+aws lambda update-function-code --function-name secret-access --image-uri 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:latest
