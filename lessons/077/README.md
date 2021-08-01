@@ -95,6 +95,3 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
 ## Links
 Resource-based policies (Principal): https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
 Resource-based policies: https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-policies.html
-You need to pass the statusCode after executing the Lambda function: https://stackoverflow.com/questions/47672377/message-internal-server-error-when-try-to-access-aws-gateway-api
-
-aws lambda update-function-code --function-name secret-access --image-uri 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:latest
