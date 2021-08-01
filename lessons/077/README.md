@@ -63,7 +63,7 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
 {
     "Effect": "Allow",
     "Action": "secretsmanager:GetSecretValue",
-    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-HCIVaA"
+    "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v3-<id>"
 }
 ```
 - Remove access
@@ -79,7 +79,7 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
         "AWS": "arn:aws:sts::424432388155:assumed-role/secret-access-role/secret-access"
       },
       "Action": "secretsmanager:GetSecretValue",
-      "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-HCIVaA"
+      "Resource": "arn:aws:secretsmanager:us-east-1:424432388155:secret:prod/slack-bot/token-v3-<id>"
     }
   ]
 }
