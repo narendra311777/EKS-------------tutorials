@@ -90,6 +90,7 @@ docker push 424432388155.dkr.ecr.us-east-1.amazonaws.com/secret-access:v0.1.0
 - Delete `AWSLambdaSecretsAccess` IAM Policy
 - Delete `secret-access` lambda
 - Delete `secret-access-API` API gateway
+- Delete CloudWatch logs
 
 ## Links
 Resource-based policies (Principal): https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
