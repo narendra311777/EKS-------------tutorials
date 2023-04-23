@@ -1,12 +1,18 @@
 # Tutorials
+
 ![YouTube Art](assets/youtube-art.png?raw=true "Title")
 
 # Support
-☕ - [Buy Me a Coffe](https://www.buymeacoffee.com/antonputra)
+
+🔴 - To support my channel, I’d like to offer Mentorship/On-the-Job Support/Consulting (me@antonputra.com)
+
+# Contents
+
+📚 - [Lessons](docs/contents.md)
 
 # Social
+
 🎥 - [YouTube](https://www.youtube.com/c/AntonPutra)  
 💼 - [LinkedIn](https://www.linkedin.com/in/anton-putra)  
 🎙 - [Twitter](https://twitter.com/antonvputra)  
-👥 - [Facebook](https://www.facebook.com/profile.php?id=100037229408982)  
 📨 - me@antonputra.com  
